@@ -1,0 +1,59 @@
+@import '../../styles/vars.scss';
+$bottomWidth: 600px;
+.container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid red;
+  .top {
+    display: flex;
+    align-items: flex-end;
+    .pointer {
+      transform-origin: bottom center;
+      height: 200px;
+      width: 50px;
+      background-color: $pink;
+      z-index: 2;
+    }
+    .voiceContainer {
+      display: flex;
+      flex-direction: column;
+      margin-left: 100px;
+      align-items: center;
+      position: relative;
+      top: 70px;
+      .voiceDisplay {
+        width: 60px;
+        height: 230px;
+        border: 10px solid $blue;
+        border-width: 50px 15px 50px 15px;
+
+        .circles {
+          position: absolute;
+          bottom: 230px;
+          width: 30px;
+          text-align: center;
+          color: #eee;
+          font-size: 20px;
+          font-weight: 600;
+        }
+        .voiceFill {
+          width: 30px;
+          height: 160px;
+          background-color: #eee;
+          border-bottom: 0px solid $pink;
+        }
+      }
+      .voiceLogo {
+        width: 40px;
+      }
+    }
+  }
+  .bottom {
+    height: 80px;
+    width: $bottomWidth;
+    background-color: $black;
+  }
+}
