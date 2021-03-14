@@ -6,17 +6,24 @@ let dragging = false;
 let circles = 0;
 let lastDeg = 0;
 let lastX = 0;
-const VoiceControl: React.FC = () => {
+type PropsType = {
+  size?: number;
+};
+const VoiceControl: React.FC<PropsType> = (props) => {
+  const { size = 10 } = props;
   const handleRef = useRef<HTMLDivElement>(null);
   const [rotateDeg, setRotateDeg] = useState<number>(0);
+
   useEffect(() => {
-    document.onmousemove = handleMove;
-    document.onmouseup = () => (dragging = false);
+    // 将mousemove和mouseup绑定在document上，这样拖拽元素时鼠标飞出去事件也不会丢失
+    document.onmousemove = handleMove; // 鼠标移动
+    document.onmouseup = () => (dragging = false); // 鼠标抬起
     return () => {
       document.onmousemove = null;
       document.onmouseup = null;
     };
   }, []);
+
   const handleMove = (e: MouseEvent) => {
     if (!dragging || !handleRef.current) {
       return;
@@ -52,6 +59,11 @@ const VoiceControl: React.FC = () => {
     }
     if (det_y > 0) {
       if (e.clientX > lastX && deg < lastDeg && deg < 10 && circles < 100) {
+        // 其实判断deg===0的时候直接加1最好，但是因为转动太快有掉帧的问题，有些坐标和角度获取不到
+        // 加1的条件：1.deg 从 359->0: 在顺时针旋转的时候因为deg一直时递增的（0增到359+），所以当前deg小于上一次deg的时候就是从第四象限跳到第一象限的时候
+        //          2.顺时针旋转：
+        //          （1）当前X坐标大于上一次坐标（不一定能满足，因为mousemove绑定在document上，有时候拖拽鼠标会往回移动）
+        //          （2）所以加一个条件一起判断是否顺时针：deg < 10，只在离y正半轴10度的地方判断
         circles++;
       } else if (
         e.clientX < lastX &&
@@ -59,13 +71,13 @@ const VoiceControl: React.FC = () => {
         360 - deg < 10 &&
         circles > 0
       ) {
+        // 减1的条件：1. 逆时针旋转；2.从第1象限跳到第四象限的那个时候
         circles--;
       }
     }
     setRotateDeg(deg);
     lastDeg = deg;
     lastX = e.clientX;
-    // handleRef.current.style.transform = `rotate(${deg}deg)`;
   };
   return (
     <div className={styles.container}>
@@ -74,9 +86,11 @@ const VoiceControl: React.FC = () => {
           ref={handleRef}
           className={styles.handler}
           style={{ transform: `rotate(${rotateDeg}deg)` }}
-          onMouseDown={() => (dragging = true)}
+          onMouseDown={() => (dragging = true)} // 鼠标按下
         >
-          <div className={styles.head}></div>
+          <div className={styles.head}>
+            {/* <img src={require('/img/Jennie2.jpg')} alt="head" /> */}
+          </div>
           <div className={styles.axis}></div>
           <div className={styles.anchor}></div>
         </div>
@@ -85,7 +99,7 @@ const VoiceControl: React.FC = () => {
             <div className={styles.voiceNumber}> {circles}</div>
             <div
               className={styles.voiceFill}
-              style={{ borderBottomWidth: `${1.6 * circles}px` }}
+              style={{ borderBottomWidth: `${size * 0.14 * circles}px` }}
             ></div>
           </div>
           <img src={voice} alt="voice" className={styles.voiceLogo} />
