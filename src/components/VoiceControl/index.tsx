@@ -72,13 +72,17 @@ const VoiceControl: React.FC = () => {
       <div className={styles.top}>
         <div
           ref={handleRef}
-          className={styles.pointer}
+          className={styles.handler}
           style={{ transform: `rotate(${rotateDeg}deg)` }}
           onMouseDown={() => (dragging = true)}
-        ></div>
+        >
+          <div className={styles.head}></div>
+          <div className={styles.axis}></div>
+          <div className={styles.anchor}></div>
+        </div>
         <div className={styles.voiceContainer}>
           <div className={styles.voiceDisplay}>
-            <div className={styles.circles}> {circles}</div>
+            <div className={styles.voiceNumber}> {circles}</div>
             <div
               className={styles.voiceFill}
               style={{ borderBottomWidth: `${1.6 * circles}px` }}

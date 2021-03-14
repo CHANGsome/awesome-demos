@@ -1,59 +1,87 @@
 @import '../../styles/vars.scss';
-$bottomWidth: 600px;
 .container {
-  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid red;
+  font-size: 10px;
   .top {
     display: flex;
     align-items: flex-end;
-    .pointer {
-      transform-origin: bottom center;
-      height: 200px;
-      width: 50px;
-      background-color: $pink;
+    .handler {
+      transform-origin: 50% 88.5%;
       z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      top: -1em;
+
+      .anchor,
+      .head {
+        width: 7em;
+        height: 7em;
+        border-radius: 50%;
+        border: 0.5em solid $grey;
+        background-color: $pink;
+        z-index: 10;
+      }
+      .head {
+        position: relative;
+        top: 6em;
+        cursor: pointer;
+      }
+      .axis {
+        width: 4.8em;
+        height: 16.5em;
+        background-color: $pink;
+        // 使用透视画梯形
+        transform: perspective(4.2em) rotateX(9deg);
+        border: 0.5em solid $grey;
+        position: relative;
+        top: 1em;
+      }
     }
     .voiceContainer {
       display: flex;
       flex-direction: column;
-      margin-left: 100px;
+      margin-left: 10em;
       align-items: center;
-      position: relative;
-      top: 70px;
-      .voiceDisplay {
-        width: 60px;
-        height: 230px;
-        border: 10px solid $blue;
-        border-width: 50px 15px 50px 15px;
 
-        .circles {
+      .voiceDisplay {
+        width: 6em;
+        height: 21em;
+        border: 1em solid $blue;
+        border-width: 5em 1.5em 5em 1.5em;
+        position: relative;
+        .voiceNumber {
           position: absolute;
-          bottom: 230px;
-          width: 30px;
+          top: -1.7em;
+          width: 1.5em;
           text-align: center;
-          color: #eee;
-          font-size: 20px;
+          color: $grey;
+          font-size: 2em;
           font-weight: 600;
         }
         .voiceFill {
-          width: 30px;
-          height: 160px;
-          background-color: #eee;
-          border-bottom: 0px solid $pink;
+          width: 3em;
+          height: 14em;
+          background-color: $grey;
+          border-bottom: 0em solid $pink;
         }
       }
       .voiceLogo {
-        width: 40px;
+        width: 6em;
       }
     }
   }
   .bottom {
-    height: 80px;
-    width: $bottomWidth;
+    height: 8em;
+    width: 60em;
     background-color: $black;
+    position: relative;
+    top: -8em;
+    z-index: -1;
   }
 }
