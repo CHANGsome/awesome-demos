@@ -8,21 +8,12 @@ let lastDeg = 0;
 let lastX = 0;
 type PropsType = {
   size?: number;
+  onVolumeChange?: (currentVolume: number) => void;
 };
 const VoiceControl: React.FC<PropsType> = (props) => {
-  const { size = 10 } = props;
+  const { size = 10, onVolumeChange } = props;
   const handleRef = useRef<HTMLDivElement>(null);
   const [rotateDeg, setRotateDeg] = useState<number>(0);
-
-  useEffect(() => {
-    // 将mousemove和mouseup绑定在document上，这样拖拽元素时鼠标飞出去事件也不会丢失
-    document.onmousemove = handleMove; // 鼠标移动
-    document.onmouseup = () => (dragging = false); // 鼠标抬起
-    return () => {
-      document.onmousemove = null;
-      document.onmouseup = null;
-    };
-  }, []);
 
   const handleMove = (e: MouseEvent) => {
     if (!dragging || !handleRef.current) {
@@ -75,10 +66,20 @@ const VoiceControl: React.FC<PropsType> = (props) => {
         circles--;
       }
     }
+    onVolumeChange && onVolumeChange(circles / 100);
     setRotateDeg(deg);
     lastDeg = deg;
     lastX = e.clientX;
   };
+  useEffect(() => {
+    // 将mousemove和mouseup绑定在document上，这样拖拽元素时鼠标飞出去事件也不会丢失
+    document.onmousemove = handleMove; // 鼠标移动
+    document.onmouseup = () => (dragging = false); // 鼠标抬起
+    return () => {
+      document.onmousemove = null;
+      document.onmouseup = null;
+    };
+  });
   return (
     <div className={styles.container}>
       <div className={styles.top}>
