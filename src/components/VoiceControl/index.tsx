@@ -6,6 +6,7 @@ let dragging = false;
 let circles = 0;
 let lastDeg = 0;
 let lastX = 0;
+
 type PropsType = {
   size?: number;
   volume?: number;
@@ -13,17 +14,18 @@ type PropsType = {
 };
 const VoiceControl: React.FC<PropsType> = (props) => {
   const { size = 10, volume = 10, onVolumeChange } = props;
-  const handleRef = useRef<HTMLDivElement>(null);
+  const handlerRef = useRef<HTMLDivElement>(null);
+  const volumeRef = useRef<HTMLDivElement>(null);
   const [rotateDeg, setRotateDeg] = useState<number>(0);
 
   const handleMove = useCallback(
     (e: MouseEvent) => {
-      if (!dragging || !handleRef.current) {
+      if (!dragging || !handlerRef.current) {
         return;
       }
       let [transformOriginX, transformOriginY] = [
-        handleRef.current.offsetLeft,
-        handleRef.current.offsetTop + handleRef.current.offsetHeight,
+        handlerRef.current.offsetLeft,
+        handlerRef.current.offsetTop + handlerRef.current.offsetHeight,
       ];
       let [det_x, det_y] = [
         e.clientX - transformOriginX,
@@ -85,27 +87,46 @@ const VoiceControl: React.FC<PropsType> = (props) => {
       document.onmouseup = null;
     };
   }, [handleMove]);
+
+  useEffect(() => {
+    if (!volumeRef.current) {
+      return;
+    }
+    volumeRef.current.textContent = volume + '';
+    circles = 10;
+  }, [volume]);
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{ fontSize: `${size}px` }}>
       <div className={styles.top}>
         <div
-          ref={handleRef}
+          ref={handlerRef}
           className={styles.handler}
           style={{ transform: `rotate(${rotateDeg}deg)` }}
           onMouseDown={() => (dragging = true)} // 鼠标按下
         >
           <div className={styles.head}>
-            {/* <img src={require('/img/Jennie2.jpg')} alt="head" /> */}
+            {/* <img
+              src={require('img/Jennie2.jpg').default}
+              alt="head"
+              className={styles.headIcon}
+            /> */}
           </div>
           <div className={styles.axis}></div>
           <div className={styles.anchor}></div>
         </div>
         <div className={styles.voiceContainer}>
           <div className={styles.voiceDisplay}>
-            <div className={styles.voiceNumber}> {circles}</div>
+            <div className={styles.voiceNumber} ref={volumeRef}>
+              {circles}
+            </div>
             <div
               className={styles.voiceFill}
-              style={{ borderBottomWidth: `${size * 0.14 * circles}px` }}
+              style={
+                volume && !circles
+                  ? { borderBottomWidth: `${size * 0.14 * volume}px` }
+                  : { borderBottomWidth: `${size * 0.14 * circles}px` }
+              }
             ></div>
           </div>
           <img src={voice} alt="voice" className={styles.voiceLogo} />

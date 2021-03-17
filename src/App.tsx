@@ -4,7 +4,6 @@ let music = require('./resources/SomeoneYouLoved.mp3');
 
 function App() {
   const audioRef = useRef<HTMLAudioElement>(null);
-
   useEffect(() => {
     if (!audioRef.current) {
       return;
@@ -15,6 +14,7 @@ function App() {
     <div className="App">
       <InvoiceControl
         volume={10}
+        size={3}
         onVolumeChange={(currentVolume: number) => {
           if (!audioRef.current) {
             return;

@@ -1,10 +1,11 @@
 @import '../../styles/vars.scss';
 .container {
+  max-width: 80em;
+  max-height: 40em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 10px;
   user-select: none;
   .top {
     display: flex;
@@ -32,6 +33,11 @@
         position: relative;
         top: 6em;
         cursor: pointer;
+        .headIcon {
+          width: 7em;
+          height: 7em;
+          border-radius: 50%;
+        }
       }
       .axis {
         width: 4.8em;
@@ -41,7 +47,7 @@
         transform: perspective(4.2em) rotateX(9deg);
         border: 0.5em solid $grey;
         position: relative;
-        top: 1em;
+        top: 0.7em;
       }
     }
     .voiceContainer {
@@ -51,15 +57,15 @@
       align-items: center;
 
       .voiceDisplay {
-        width: 6em;
-        height: 21em;
-        border: 1em solid $blue;
-        border-width: 5em 1.5em 5em 1.5em;
-        position: relative;
+        width: 8em;
+        height: 22em;
+        border-bottom: 2em solid $blue;
+        background-color: $blue;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
         .voiceNumber {
-          position: absolute;
-          top: -1.7em;
-          width: 1.5em;
           text-align: center;
           color: $grey;
           font-size: 2em;
