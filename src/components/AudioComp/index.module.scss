@@ -86,7 +86,7 @@
     box-shadow: 0 30px 80px #656565;
     border-radius: 15px;
     background-color: #fff;
-    padding-left: 120px;
+    padding-left: 80px;
     position: relative;
     z-index: 1;
     @include center;
@@ -109,6 +109,11 @@
         height: 32px;
         fill: #d6dee7;
       }
+    }
+    .handlerWrapper {
+      position: absolute;
+      right: 40px;
+      bottom: 24px;
     }
   }
 }

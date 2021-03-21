@@ -1,6 +1,8 @@
 import styles from './index.module.scss';
 import Icon from 'components/IconComp';
-import VoiceControl from 'components/VoiceControl';
+import Handler from 'components/VoiceControl/Handler';
+import { useState } from 'react';
+
 type AudioPropsType = {
   audioSrc: string;
   audioTitle: string;
@@ -8,8 +10,10 @@ type AudioPropsType = {
 };
 const AudioComp: React.FC<AudioPropsType> = (props) => {
   const { audioSrc, audioTitle, initVolume = 0 } = props;
+  const [currentVolume, setCurrentVolume] = useState<number>(initVolume);
   return (
     <div>
+      {currentVolume}
       <audio
         src={audioSrc}
         preload="true"
@@ -21,7 +25,7 @@ const AudioComp: React.FC<AudioPropsType> = (props) => {
       <div className={styles.audioPlayer}>
         <div className={styles.musicInfo}>
           <div className={styles.info}>
-            <h3>Someone You Loved</h3>
+            <h3>{audioTitle}</h3>
             <div className={styles.progressBarWrapper}>
               <div className={styles.time}>
                 <span>00:00</span>
@@ -32,7 +36,6 @@ const AudioComp: React.FC<AudioPropsType> = (props) => {
               </div>
             </div>
           </div>
-          <VoiceControl size={3} />
         </div>
         <div className={styles.cover}>
           <div className={styles.center}></div>
@@ -46,6 +49,20 @@ const AudioComp: React.FC<AudioPropsType> = (props) => {
           </div>
           <div className={styles.next}>
             <Icon name="next" />
+          </div>
+          <div className={styles.handlerWrapper}>
+            <Handler
+              size={8}
+              onVolumeChange={(circles: number) => {
+                let volume = circles + initVolume;
+                if (volume < 0) {
+                  volume = 0;
+                } else if (volume > 100) {
+                  volume = 100;
+                }
+                setCurrentVolume(volume);
+              }}
+            />
           </div>
         </div>
       </div>

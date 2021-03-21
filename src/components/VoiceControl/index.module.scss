@@ -1,58 +1,7 @@
 @import '../../styles/vars.scss';
 .voiceContainer {
-  user-select: none;
   display: flex;
   align-items: flex-end;
-  // background-color: red;
-  > .handler {
-    transform-origin: 50% 86.5%;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    > .head,
-    > .anchor {
-      width: 7em;
-      height: 7em;
-      border-radius: 50%;
-      border: 0.5em solid $light-grey;
-      background-color: $pink;
-      z-index: 2;
-      cursor: pointer;
-      // transition: 0.5s ease all;
-    }
-    > .head {
-      position: absolute;
-      top: 1em;
-    }
-    > .axis {
-      width: 4.8em;
-      height: 16.5em;
-      background-color: $pink;
-      // 使用透视画梯形
-      transform: perspective(4.5em) rotateX(9deg);
-      border: 0.5em solid $light-grey;
-      // transition: 0.5s ease all;
-    }
-    > .anchor {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      > .anchorIconSide {
-        width: 0.5em;
-        height: 1em;
-        background-color: $light-grey;
-      }
-      > .anchorIconCenter {
-        width: 0.5em;
-        height: 2em;
-        background-color: $light-grey;
-        margin: 0 0.5em;
-      }
-    }
-  }
   > .voiceDisplay {
     width: 7.5em;
     height: 22em;
@@ -75,6 +24,55 @@
       height: 14em;
       background-color: $light-grey;
       border-bottom: 0em solid $pink;
+    }
+  }
+}
+.handler {
+  transform-origin: 50% 86.5%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  > .head,
+  > .anchor {
+    width: 7em;
+    height: 7em;
+    border-radius: 50%;
+    border: 0.5em solid $light-grey;
+    background-color: $pink;
+    z-index: 2;
+    cursor: pointer;
+    // transition: 0.5s ease all;
+  }
+  > .head {
+    position: absolute;
+    top: 1em;
+  }
+  > .axis {
+    width: 4.8em;
+    height: 16.5em;
+    background-color: $pink;
+    // 使用透视画梯形
+    transform: perspective(4.5em) rotateX(9deg);
+    border: 0.5em solid $light-grey;
+    // transition: 0.5s ease all;
+  }
+  .anchor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > .anchorIconSide {
+      width: 0.5em;
+      height: 1em;
+      background-color: $light-grey;
+    }
+    > .anchorIconCenter {
+      width: 0.5em;
+      height: 2em;
+      background-color: $light-grey;
+      margin: 0 0.5em;
     }
   }
 }
