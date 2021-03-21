@@ -1,4 +1,23 @@
 $black: #000;
 $pink: #eca1b5;
+$light-pink: #fff7f7;
 $blue: #4987fd;
-$grey: #f0f3f4;
+$light-blue: #32bafa;
+$light-grey: #f0f3f4;
+$grey: #d6dee7;
+
+@mixin center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@mixin clearFloat {
+  content: '';
+  clear: both;
+  display: table;
+}
+@mixin one-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

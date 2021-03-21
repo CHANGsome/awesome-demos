@@ -1,94 +1,80 @@
 @import '../../styles/vars.scss';
-.container {
-  max-width: 80em;
-  max-height: 40em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.voiceContainer {
   user-select: none;
-  .top {
+  display: flex;
+  align-items: flex-end;
+  // background-color: red;
+  > .handler {
+    transform-origin: 50% 86.5%;
+    z-index: 1;
     display: flex;
-    align-items: flex-end;
-    .handler {
-      transform-origin: 50% 88.5%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    > .head,
+    > .anchor {
+      width: 7em;
+      height: 7em;
+      border-radius: 50%;
+      border: 0.5em solid $light-grey;
+      background-color: $pink;
       z-index: 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      top: -1em;
-
-      .anchor,
-      .head {
-        width: 7em;
-        height: 7em;
-        border-radius: 50%;
-        border: 0.5em solid $grey;
-        background-color: $pink;
-        z-index: 10;
-      }
-      .head {
-        position: relative;
-        top: 6em;
-        cursor: pointer;
-        .headIcon {
-          width: 7em;
-          height: 7em;
-          border-radius: 50%;
-        }
-      }
-      .axis {
-        width: 4.8em;
-        height: 16.5em;
-        background-color: $pink;
-        // 使用透视画梯形
-        transform: perspective(4.2em) rotateX(9deg);
-        border: 0.5em solid $grey;
-        position: relative;
-        top: 0.7em;
-      }
+      cursor: pointer;
+      // transition: 0.5s ease all;
     }
-    .voiceContainer {
+    > .head {
+      position: absolute;
+      top: 1em;
+    }
+    > .axis {
+      width: 4.8em;
+      height: 16.5em;
+      background-color: $pink;
+      // 使用透视画梯形
+      transform: perspective(4.5em) rotateX(9deg);
+      border: 0.5em solid $light-grey;
+      // transition: 0.5s ease all;
+    }
+    > .anchor {
       display: flex;
-      flex-direction: column;
-      margin-left: 10em;
       align-items: center;
-
-      .voiceDisplay {
-        width: 8em;
-        height: 22em;
-        border-bottom: 2em solid $blue;
-        background-color: $blue;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        .voiceNumber {
-          text-align: center;
-          color: $grey;
-          font-size: 2em;
-          font-weight: 600;
-        }
-        .voiceFill {
-          width: 3em;
-          height: 14em;
-          background-color: $grey;
-          border-bottom: 0em solid $pink;
-        }
+      justify-content: center;
+      > .anchorIconSide {
+        width: 0.5em;
+        height: 1em;
+        background-color: $light-grey;
       }
-      .voiceLogo {
-        width: 6em;
+      > .anchorIconCenter {
+        width: 0.5em;
+        height: 2em;
+        background-color: $light-grey;
+        margin: 0 0.5em;
       }
     }
   }
-  .bottom {
-    height: 8em;
-    width: 60em;
-    background-color: $black;
-    position: relative;
-    top: -8em;
-    z-index: -1;
+  > .voiceDisplay {
+    width: 7.5em;
+    height: 22em;
+    margin-left: 7em;
+    border-bottom: 2em solid $blue;
+    background-color: $blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    // transition: 0.5s ease all;
+    > .voiceNumber {
+      text-align: center;
+      color: $light-grey;
+      font-size: 2em;
+      font-weight: 600;
+    }
+    > .voiceFill {
+      width: 3em;
+      height: 14em;
+      background-color: $light-grey;
+      border-bottom: 0em solid $pink;
+    }
   }
 }

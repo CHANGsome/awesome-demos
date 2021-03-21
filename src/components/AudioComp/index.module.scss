@@ -1,0 +1,114 @@
+@import 'styles/vars.scss';
+@keyframes rotateAlbumArt {
+  0% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+.audioPlayer {
+  position: relative;
+  > .musicInfo {
+    width: 500px;
+    height: 100px;
+    background-color: #fff7f7;
+    margin: 0 auto;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    align-items: center;
+    > .info {
+      height: 65px;
+      margin: 18px 36px 0 180px;
+      display: flex;
+      flex-direction: column;
+      > h3 {
+        max-width: 190px;
+        font-size: 14px;
+        color: #777;
+        @include one-line;
+      }
+      > .progressBarWrapper {
+        margin-top: 10px;
+        > .time {
+          color: $pink;
+          display: flex;
+          justify-content: space-between;
+          font-weight: 500;
+          font-size: 14px;
+        }
+        > .progressBar {
+          width: 190px;
+          height: 6px;
+          background-color: #ffe;
+          cursor: pointer;
+          border-radius: 6px;
+          margin-top: 4px;
+
+          &:hover {
+            background-color: $grey;
+          }
+          > .inner {
+            width: 19px;
+            height: 6px;
+            background-color: $pink;
+            border-radius: 6px;
+          }
+        }
+      }
+    }
+  }
+  > .cover {
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+    border: 10px solid #fff;
+    animation: rotateAlbumArt 3s linear 0s infinite forwards;
+    background: url('./../../img/cover.jpeg');
+    background-size: 115px;
+    position: absolute;
+    bottom: 20px;
+    margin-left: 40px;
+    z-index: 2;
+    @include center;
+    > .center {
+      width: 25px;
+      height: 25px;
+      background-color: $grey;
+      border: 3px solid #fff;
+      border-radius: 50%;
+    }
+  }
+  > .controls {
+    width: 540px;
+    height: 100px;
+    box-shadow: 0 30px 80px #656565;
+    border-radius: 15px;
+    background-color: #fff;
+    padding-left: 120px;
+    position: relative;
+    z-index: 1;
+    @include center;
+    > .prev,
+    > .next,
+    > .play {
+      width: 76px;
+      height: 76px;
+      border-radius: 6px;
+      z-index: 3;
+      @include center;
+      &:hover {
+        background-color: #d6dee7;
+        > svg {
+          fill: #fff;
+        }
+      }
+      > svg {
+        width: 32px;
+        height: 32px;
+        fill: #d6dee7;
+      }
+    }
+  }
+}
