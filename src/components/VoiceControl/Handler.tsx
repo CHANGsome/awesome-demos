@@ -8,11 +8,17 @@ let lastX = 0;
 let circles = 0;
 type PropsType = {
   size?: number;
+  maxCircles?: number;
   onVolumeChange?: (currentVolume: number) => void;
   onMouseEventChange?: (isMouseDown: boolean) => void;
 };
 const Handler: React.FC<PropsType> = (props) => {
-  const { size = 10, onVolumeChange, onMouseEventChange } = props;
+  const {
+    size = 10,
+    maxCircles = 100,
+    onVolumeChange,
+    onMouseEventChange,
+  } = props;
   const handlerRef = useRef<HTMLDivElement>(null);
   const handleMove = useCallback(
     (e: MouseEvent) => {
@@ -55,7 +61,7 @@ const Handler: React.FC<PropsType> = (props) => {
         e.clientX > lastX &&
         deg < lastDeg &&
         deg < 10 &&
-        circles < 100
+        circles < maxCircles
       ) {
         // 其实判断deg===0的时候直接加1最好，但是因为转动太快有掉帧的问题，有些坐标和角度获取不到
         // 加1的条件：1.deg 从 359->0: 在顺时针旋转的时候因为deg一直时递增的（0增到359+），所以当前deg小于上一次deg的时候就是从第四象限跳到第一象限的时候
@@ -78,7 +84,7 @@ const Handler: React.FC<PropsType> = (props) => {
       lastX = e.clientX;
       handlerRef.current.style.transform = `rotate(${deg}deg)`;
     },
-    [onVolumeChange]
+    [onVolumeChange, maxCircles]
   );
   useEffect(() => {
     // 将mousemove和mouseup绑定在document上，这样拖拽元素时鼠标飞出去事件也不会丢失

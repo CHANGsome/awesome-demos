@@ -1,24 +1,91 @@
 import styles from './index.module.scss';
 import Icon from 'components/IconComp';
 import Handler from 'components/VoiceControl/Handler';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import Waves from 'components/Waves';
 
-type AudioPropsType = {
+type AudioCompPropsType = {
   audioSrc: string;
   audioTitle: string;
   initVolume?: number;
 };
-const AudioComp: React.FC<AudioPropsType> = (props) => {
-  const { audioSrc, audioTitle, initVolume = 0 } = props;
-  const [currentVolume, setCurrentVolume] = useState<number>(initVolume);
+type AudioProps = {
+  totalTime: number;
+  currentTime: number;
+  isPlay: boolean;
+  volume: number;
+};
+const secondToDate = (totalSecond: number) => {
+  const second = Math.floor(totalSecond % 60);
+  const minute = Math.floor(totalSecond / 60);
+  return `${minute > 10 ? minute : `0${minute}`}:${
+    second > 10 ? second : `0${second}`
+  }`;
+};
+const AudioComp: React.FC<AudioCompPropsType> = (props) => {
+  const { audioSrc, audioTitle } = props;
+  const [currentVolume, setCurrentVolume] = useState<number>(0);
+  const [isMouseMove, setIsMouseMove] = useState<boolean>(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [audioProps, setAudioProps] = useState<AudioProps>({
+    totalTime: 0,
+    currentTime: 0,
+    isPlay: false,
+    volume: 0,
+  });
+
+  const controlAudio = (type: string, value?: any) => {
+    if (!audioRef.current) {
+      return;
+    }
+    switch (type) {
+      case 'totalTime':
+        setAudioProps({ ...audioProps, totalTime: audioRef.current.duration });
+        break;
+      case 'currentTime':
+        setAudioProps({
+          ...audioProps,
+          currentTime: audioRef.current.currentTime,
+        });
+        break;
+      case 'play':
+        audioRef.current.play();
+        setAudioProps({
+          ...audioProps,
+          isPlay: true,
+        });
+        break;
+      case 'pause':
+        audioRef.current.pause();
+        setAudioProps({
+          ...audioProps,
+          isPlay: false,
+        });
+        break;
+      case 'changeVolume':
+        audioRef.current.volume = value;
+        setAudioProps({
+          ...audioProps,
+          volume: value,
+        });
+        break;
+    }
+  };
   return (
-    <div>
-      {currentVolume}
+    <div style={isMouseMove ? { pointerEvents: 'none' } : {}}>
       <audio
         src={audioSrc}
         preload="true"
-        onCanPlay={() => {}}
-        onTimeUpdate={() => {}}
+        onCanPlay={() => {
+          if (audioRef.current) {
+            audioRef.current.volume = 0;
+          }
+          controlAudio('totalTime');
+        }}
+        onTimeUpdate={() => {
+          controlAudio('currenTime');
+        }}
+        ref={audioRef}
       >
         您的浏览器不支持 audio 标签。
       </audio>
@@ -28,24 +95,34 @@ const AudioComp: React.FC<AudioPropsType> = (props) => {
             <h3>{audioTitle}</h3>
             <div className={styles.progressBarWrapper}>
               <div className={styles.time}>
-                <span>00:00</span>
-                <span>03:00</span>
+                <span>{secondToDate(audioProps.currentTime)}</span>
+                <span>{secondToDate(audioProps.totalTime)}</span>
               </div>
               <div className={styles.progressBar}>
                 <div className={styles.inner}></div>
               </div>
             </div>
           </div>
+          <div className={styles.waveWrapper}>
+            <Waves
+              top={currentVolume > 10 ? 100 - 10 * (currentVolume - 10) : 100}
+            />
+          </div>
         </div>
         <div className={styles.cover}>
           <div className={styles.center}></div>
         </div>
-        <div className={styles.controls} style={{ pointerEvents: 'auto' }}>
+        <div className={styles.controls}>
           <div className={styles.prev}>
             <Icon name="prev" />
           </div>
-          <div className={styles.play}>
-            <Icon name="play" />
+          <div
+            className={styles.play}
+            onClick={() => {
+              audioProps.isPlay ? controlAudio('pause') : controlAudio('play');
+            }}
+          >
+            {audioProps.isPlay ? <Icon name="play" /> : <Icon name="pause" />}
           </div>
           <div className={styles.next}>
             <Icon name="next" />
@@ -53,16 +130,19 @@ const AudioComp: React.FC<AudioPropsType> = (props) => {
           <div className={styles.handlerWrapper}>
             <Handler
               size={8}
+              maxCircles={20}
               onVolumeChange={(circles: number) => {
-                let volume = circles + initVolume;
-                if (volume < 0) {
-                  volume = 0;
-                } else if (volume > 100) {
-                  volume = 100;
-                }
-                setCurrentVolume(volume);
+                setCurrentVolume(circles);
+                controlAudio('changeVolume', circles / 20);
+              }}
+              onMouseEventChange={(dragging: boolean) => {
+                // 解决摇杆时会触发其他元素的hover事件的问题
+                setIsMouseMove(dragging);
               }}
             />
+          </div>
+          <div className={styles.waveWrapper}>
+            <Waves top={currentVolume < 10 ? 100 - 10 * currentVolume : 0} />
           </div>
         </div>
       </div>
