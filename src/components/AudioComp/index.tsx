@@ -3,6 +3,7 @@ import Icon from 'components/IconComp';
 import Handler from 'components/VoiceControl/Handler';
 import { useRef, useState } from 'react';
 import Waves from 'components/Waves';
+import computedWinDis from 'utils/computedWinDis';
 
 type AudioCompPropsType = {
   audioSrc: string;
@@ -24,11 +25,11 @@ const secondToDate = (totalSecond: number) => {
 };
 const AudioComp: React.FC<AudioCompPropsType> = (props) => {
   const { audioSrc, audioTitle } = props;
-  const [currentVolume, setCurrentVolume] = useState<number>(0);
   const [isMouseMove, setIsMouseMove] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const waveRef1 = useRef<HTMLDivElement>(null);
   const waveRef2 = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const [audioProps, setAudioProps] = useState<AudioProps>({
     totalTime: 0,
     currentTime: 0,
@@ -36,8 +37,26 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
     volume: 0,
   });
 
-  const controlAudio = (type: string, value?: any) => {
-    if (!audioRef.current) {
+  const updateCurrentTime = (value: number) => {
+    setAudioProps({
+      ...audioProps,
+      currentTime: value,
+    });
+    // 更新进度条
+    let progressBarLen = (190 * value) / audioRef.current!.duration;
+    if (value.toString() === audioRef.current!.duration.toString()) {
+      // 播放完的时候
+      setAudioProps({
+        ...audioProps,
+        isPlay: false,
+        currentTime: 0,
+      });
+      progressBarLen = 0;
+    }
+    progressBarRef.current!.style.width = `${progressBarLen}px`;
+  };
+  const controlAudio = (type: string, value?: number) => {
+    if (!audioRef.current || !progressBarRef.current) {
       return;
     }
     switch (type) {
@@ -45,10 +64,13 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
         setAudioProps({ ...audioProps, totalTime: audioRef.current.duration });
         break;
       case 'currentTime':
-        setAudioProps({
-          ...audioProps,
-          currentTime: audioRef.current.currentTime,
-        });
+        // 更新当前时间
+        updateCurrentTime(audioRef.current.currentTime);
+        break;
+      case 'changeCurrentTime':
+        // 更新当前时间
+        audioRef.current.currentTime = value as number;
+        updateCurrentTime(value as number);
         break;
       case 'play':
         audioRef.current.play();
@@ -65,10 +87,10 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
         });
         break;
       case 'changeVolume':
-        audioRef.current.volume = value;
+        audioRef.current.volume = value as number;
         setAudioProps({
           ...audioProps,
-          volume: value,
+          volume: value as number,
         });
         break;
     }
@@ -80,12 +102,12 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
         preload="true"
         onCanPlay={() => {
           if (audioRef.current) {
-            audioRef.current.volume = 0;
+            audioRef.current.volume = audioProps.volume;
           }
           controlAudio('totalTime');
         }}
         onTimeUpdate={() => {
-          controlAudio('currenTime');
+          controlAudio('currentTime');
         }}
         ref={audioRef}
       >
@@ -100,8 +122,20 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
                 <span>{secondToDate(audioProps.currentTime)}</span>
                 <span>{secondToDate(audioProps.totalTime)}</span>
               </div>
-              <div className={styles.progressBar}>
-                <div className={styles.inner}></div>
+              <div
+                className={styles.progressBar}
+                onClick={(e) => {
+                  if (progressBarRef.current && audioRef.current) {
+                    const startX = computedWinDis(progressBarRef.current).left;
+                    const currentX = e.clientX;
+                    controlAudio(
+                      'changeCurrentTime',
+                      ((currentX - startX) / 190) * audioRef.current.duration
+                    );
+                  }
+                }}
+              >
+                <div className={styles.inner} ref={progressBarRef}></div>
               </div>
             </div>
           </div>

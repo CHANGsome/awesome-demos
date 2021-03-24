@@ -46,12 +46,11 @@
           cursor: pointer;
           border-radius: 6px;
           margin-top: 4px;
-
           &:hover {
             background-color: $grey;
           }
           > .inner {
-            width: 19px;
+            width: 0;
             height: 6px;
             background-color: $pink;
             border-radius: 6px;
