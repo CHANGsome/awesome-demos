@@ -59,25 +59,37 @@
       }
     }
   }
-  > .cover {
-    width: 135px;
-    height: 135px;
-    border-radius: 50%;
-    border: 10px solid #fff;
-    animation: rotateAlbumArt 3s linear 0s infinite forwards;
-    background: url('./../../img/cover.jpeg');
-    background-size: 115px;
+  > .coverWrapper {
     position: absolute;
     bottom: 20px;
     margin-left: 40px;
     z-index: 2;
     @include center;
-    > .center {
-      width: 25px;
-      height: 25px;
-      background-color: $grey;
-      border: 3px solid #fff;
+    > .buffer {
+      position: absolute;
+      z-index: 2;
+      color: #1f1f1f;
+      font-weight: bold;
+      font-size: 13px;
+      background-color: rgba(255, 255, 255, 0.19);
+      opacity: 0;
+    }
+    > .cover {
+      width: 135px;
+      height: 135px;
       border-radius: 50%;
+      border: 10px solid #fff;
+      animation: rotateAlbumArt 3s linear 0s infinite forwards;
+      background: url('./../../img/cover.jpeg');
+      background-size: 115px;
+      @include center;
+      > .center {
+        width: 25px;
+        height: 25px;
+        background-color: $grey;
+        border: 3px solid #fff;
+        border-radius: 50%;
+      }
     }
   }
   > .controls {

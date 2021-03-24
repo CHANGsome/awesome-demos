@@ -15,6 +15,7 @@ type AudioProps = {
   currentTime: number;
   isPlay: boolean;
   volume: number;
+  isWaiting: boolean;
 };
 const secondToDate = (totalSecond: number) => {
   const second = Math.floor(totalSecond % 60);
@@ -35,6 +36,7 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
     currentTime: 0,
     isPlay: false,
     volume: 0,
+    isWaiting: false,
   });
 
   const updateCurrentTime = (value: number) => {
@@ -93,6 +95,18 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
           volume: value as number,
         });
         break;
+      case 'waiting': // 缓冲时
+        setAudioProps({
+          ...audioProps,
+          isWaiting: true,
+        });
+        break;
+      case 'playing': // 缓冲结束继续播放
+        setAudioProps({
+          ...audioProps,
+          isWaiting: false,
+        });
+        break;
     }
   };
   return (
@@ -110,6 +124,14 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
           controlAudio('currentTime');
         }}
         ref={audioRef}
+        onWaiting={() => {
+          // 缓冲时
+          controlAudio('waiting');
+        }}
+        onPlaying={() => {
+          // 缓冲结束时
+          controlAudio('playing');
+        }}
       >
         您的浏览器不支持 audio 标签。
       </audio>
@@ -117,7 +139,10 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
         <div className={styles.musicInfo}>
           <div className={styles.info}>
             <h3>{audioTitle}</h3>
-            <div className={styles.progressBarWrapper}>
+            <div
+              className={styles.progressBarWrapper}
+              style={audioProps.isWaiting ? { opacity: '0.5' } : {}}
+            >
               <div className={styles.time}>
                 <span>{secondToDate(audioProps.currentTime)}</span>
                 <span>{secondToDate(audioProps.totalTime)}</span>
@@ -125,6 +150,10 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
               <div
                 className={styles.progressBar}
                 onClick={(e) => {
+                  if (audioProps.isWaiting) {
+                    // 缓冲时无法改变进度条
+                    return;
+                  }
                   if (progressBarRef.current && audioRef.current) {
                     const startX = computedWinDis(progressBarRef.current).left;
                     const currentX = e.clientX;
@@ -143,8 +172,19 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
             <Waves ref={waveRef1} />
           </div>
         </div>
-        <div className={styles.cover}>
-          <div className={styles.center}></div>
+        <div className={styles.coverWrapper}>
+          <div
+            className={styles.buffer}
+            style={audioProps.isWaiting ? { opacity: '1' } : { opacity: '0' }}
+          >
+            Buffering...
+          </div>
+          <div
+            className={styles.cover}
+            style={audioProps.isWaiting ? { opacity: '0.5' } : {}}
+          >
+            <div className={styles.center}></div>
+          </div>
         </div>
         <div className={styles.controls}>
           <div className={styles.prev}>
