@@ -27,6 +27,8 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
   const [currentVolume, setCurrentVolume] = useState<number>(0);
   const [isMouseMove, setIsMouseMove] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const waveRef1 = useRef<HTMLDivElement>(null);
+  const waveRef2 = useRef<HTMLDivElement>(null);
   const [audioProps, setAudioProps] = useState<AudioProps>({
     totalTime: 0,
     currentTime: 0,
@@ -104,9 +106,7 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
             </div>
           </div>
           <div className={styles.waveWrapper}>
-            <Waves
-              top={currentVolume > 10 ? 100 - 10 * (currentVolume - 10) : 100}
-            />
+            <Waves ref={waveRef1} />
           </div>
         </div>
         <div className={styles.cover}>
@@ -132,8 +132,17 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
               size={8}
               maxCircles={20}
               onVolumeChange={(circles: number) => {
-                setCurrentVolume(circles);
                 controlAudio('changeVolume', circles / 20);
+                if (!waveRef1.current || !waveRef2.current) {
+                  return;
+                }
+                if (circles < 10) {
+                  waveRef2.current.style.top = `${100 - 10 * circles}px`;
+                  waveRef1.current.style.top = '100px';
+                } else {
+                  waveRef2.current.style.top = '0';
+                  waveRef1.current.style.top = `${100 - 10 * (circles - 10)}px`;
+                }
               }}
               onMouseEventChange={(dragging: boolean) => {
                 // 解决摇杆时会触发其他元素的hover事件的问题
@@ -142,7 +151,7 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
             />
           </div>
           <div className={styles.waveWrapper}>
-            <Waves top={currentVolume < 10 ? 100 - 10 * currentVolume : 0} />
+            <Waves ref={waveRef2} />
           </div>
         </div>
       </div>
