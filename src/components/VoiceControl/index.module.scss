@@ -57,6 +57,7 @@
     // 使用透视画梯形
     transform: perspective(4.5em) rotateX(9deg);
     border: 0.5em solid $light-grey;
+    z-index: 1;
     // transition: 0.5s ease all;
   }
   .anchor {

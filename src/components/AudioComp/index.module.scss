@@ -20,7 +20,7 @@
     position: relative;
     > .info {
       height: 65px;
-      margin: 18px 36px 0 180px;
+      margin: 14px 36px 0 180px;
       display: flex;
       flex-direction: column;
       z-index: 2;
@@ -31,7 +31,19 @@
         @include one-line;
       }
       > .progressBarWrapper {
-        margin-top: 10px;
+        margin-top: 14px;
+        position: relative;
+        > .hoverTime {
+          position: absolute;
+          top: -10px;
+          background-color: #3b3d50;
+          color: #fff;
+          border-radius: 4px;
+          font-size: 12px;
+          padding: 5px 6px;
+          letter-spacing: 1px;
+          opacity: 0;
+        }
         > .time {
           color: $pink;
           display: flex;
@@ -46,14 +58,21 @@
           cursor: pointer;
           border-radius: 6px;
           margin-top: 4px;
-          &:hover {
+          position: relative;
+          > .hoverArea {
             background-color: $grey;
+            width: 0;
+            height: 6px;
+            position: absolute;
+            z-index: 1;
           }
-          > .inner {
+          > .area {
             width: 0;
             height: 6px;
             background-color: $pink;
-            border-radius: 6px;
+            border-radius: 6px 0 0 6px;
+            position: absolute;
+            z-index: 2;
           }
         }
       }

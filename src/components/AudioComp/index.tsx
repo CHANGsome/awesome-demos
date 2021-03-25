@@ -1,7 +1,7 @@
 import styles from './index.module.scss';
 import Icon from 'components/IconComp';
 import Handler from 'components/VoiceControl/Handler';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Waves from 'components/Waves';
 import computedWinDis from 'utils/computedWinDis';
 
@@ -30,7 +30,9 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const waveRef1 = useRef<HTMLDivElement>(null);
   const waveRef2 = useRef<HTMLDivElement>(null);
-  const progressBarRef = useRef<HTMLDivElement>(null);
+  const progressAreaRef = useRef<HTMLDivElement>(null);
+  const progressHoverAreaRef = useRef<HTMLDivElement>(null);
+  const hoverTimeRef = useRef<HTMLDivElement>(null);
   const [audioProps, setAudioProps] = useState<AudioProps>({
     totalTime: 0,
     currentTime: 0,
@@ -55,10 +57,10 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
       });
       progressBarLen = 0;
     }
-    progressBarRef.current!.style.width = `${progressBarLen}px`;
+    progressAreaRef.current!.style.width = `${progressBarLen}px`;
   };
   const controlAudio = (type: string, value?: number) => {
-    if (!audioRef.current || !progressBarRef.current) {
+    if (!audioRef.current || !progressAreaRef.current) {
       return;
     }
     switch (type) {
@@ -109,6 +111,26 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
         break;
     }
   };
+  const hoverProgress = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (audioProps.isWaiting) {
+      // 缓冲时无法操作进度条
+      return;
+    }
+    if (
+      hoverTimeRef.current &&
+      progressHoverAreaRef.current &&
+      audioRef.current
+    ) {
+      hoverTimeRef.current.style.opacity = '0.8';
+      const startX = computedWinDis(progressHoverAreaRef.current).left;
+      const det_x = e.clientX - startX;
+      const hoverTimeWidth = hoverTimeRef.current.offsetWidth;
+      const hoverTime = secondToDate((det_x / 190) * audioRef.current.duration);
+      progressHoverAreaRef.current.style.width = `${det_x}px`;
+      hoverTimeRef.current.style.left = `${det_x - hoverTimeWidth / 2}px`;
+      hoverTimeRef.current.textContent = hoverTime;
+    }
+  };
   return (
     <div style={isMouseMove ? { pointerEvents: 'none' } : {}}>
       <audio
@@ -143,19 +165,20 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
               className={styles.progressBarWrapper}
               style={audioProps.isWaiting ? { opacity: '0.5' } : {}}
             >
+              <div ref={hoverTimeRef} className={styles.hoverTime}></div>
               <div className={styles.time}>
                 <span>{secondToDate(audioProps.currentTime)}</span>
                 <span>{secondToDate(audioProps.totalTime)}</span>
               </div>
               <div
                 className={styles.progressBar}
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                   if (audioProps.isWaiting) {
-                    // 缓冲时无法改变进度条
+                    // 缓冲时无法操作进度条
                     return;
                   }
-                  if (progressBarRef.current && audioRef.current) {
-                    const startX = computedWinDis(progressBarRef.current).left;
+                  if (progressAreaRef.current && audioRef.current) {
+                    const startX = computedWinDis(progressAreaRef.current).left;
                     const currentX = e.clientX;
                     controlAudio(
                       'changeCurrentTime',
@@ -163,8 +186,20 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
                     );
                   }
                 }}
+                onMouseOver={hoverProgress}
+                onMouseMove={hoverProgress}
+                onMouseOut={() => {
+                  if (hoverTimeRef.current && progressHoverAreaRef.current) {
+                    hoverTimeRef.current.style.opacity = '0';
+                    progressHoverAreaRef.current.style.width = `0`;
+                  }
+                }}
               >
-                <div className={styles.inner} ref={progressBarRef}></div>
+                <div
+                  className={styles.hoverArea}
+                  ref={progressHoverAreaRef}
+                ></div>
+                <div className={styles.area} ref={progressAreaRef}></div>
               </div>
             </div>
           </div>
@@ -172,7 +207,10 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
             <Waves ref={waveRef1} />
           </div>
         </div>
-        <div className={styles.coverWrapper}>
+        <div
+          className={styles.coverWrapper}
+          style={audioProps.isPlay ? { bottom: '30px' } : {}}
+        >
           <div
             className={styles.buffer}
             style={audioProps.isWaiting ? { opacity: '1' } : { opacity: '0' }}
@@ -181,7 +219,13 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
           </div>
           <div
             className={styles.cover}
-            style={audioProps.isWaiting ? { opacity: '0.5' } : {}}
+            style={
+              audioProps.isWaiting
+                ? { opacity: '0.5', animation: 'none' }
+                : !audioProps.isPlay
+                ? { animation: 'none' }
+                : {}
+            }
           >
             <div className={styles.center}></div>
           </div>
