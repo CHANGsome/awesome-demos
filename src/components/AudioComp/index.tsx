@@ -8,7 +8,7 @@ import computedWinDis from 'utils/computedWinDis';
 type AudioCompPropsType = {
   audioSrc: string;
   audioTitle: string;
-  initVolume?: number;
+  onChangeMusic: (det_index: number) => void;
 };
 type AudioProps = {
   totalTime: number;
@@ -25,7 +25,7 @@ const secondToDate = (totalSecond: number) => {
   }`;
 };
 const AudioComp: React.FC<AudioCompPropsType> = (props) => {
-  const { audioSrc, audioTitle } = props;
+  const { audioSrc, audioTitle, onChangeMusic } = props;
   const [isMouseMove, setIsMouseMove] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const waveRef1 = useRef<HTMLDivElement>(null);
@@ -154,6 +154,12 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
           // 缓冲结束时
           controlAudio('playing');
         }}
+        onLoadStart={() => {
+          setAudioProps({ ...audioProps, isPlay: false });
+          if (progressAreaRef.current) {
+            progressAreaRef.current.style.width = '0';
+          }
+        }}
       >
         您的浏览器不支持 audio 标签。
       </audio>
@@ -231,7 +237,12 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
           </div>
         </div>
         <div className={styles.controls}>
-          <div className={styles.prev}>
+          <div
+            className={styles.prev}
+            onClick={() => {
+              onChangeMusic(-1);
+            }}
+          >
             <Icon name="prev" />
           </div>
           <div
@@ -242,7 +253,12 @@ const AudioComp: React.FC<AudioCompPropsType> = (props) => {
           >
             {audioProps.isPlay ? <Icon name="play" /> : <Icon name="pause" />}
           </div>
-          <div className={styles.next}>
+          <div
+            className={styles.next}
+            onClick={() => {
+              onChangeMusic(1);
+            }}
+          >
             <Icon name="next" />
           </div>
           <div className={styles.handlerWrapper}>
