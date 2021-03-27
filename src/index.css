@@ -17,3 +17,12 @@ code {
   margin: 0;
   user-select: none;
 }
+ul,
+li,
+ol {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}

@@ -1,0 +1,19 @@
+@import 'styles/vars.scss';
+.layoutContainer {
+  display: flex;
+  > .content {
+    flex: 1;
+  }
+}
+.navContainer {
+  background-color: #000;
+  color: $pink;
+  min-width: 160px;
+  padding: 10px 0 0 20px;
+  > li {
+    padding: 10px 4px;
+    font-weight: 600;
+    font-size: 16p;
+    border-bottom: 1px solid $pink;
+  }
+}

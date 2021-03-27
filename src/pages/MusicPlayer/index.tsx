@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AudioComp from 'components/AudioComp';
 import styles from './index.module.scss';
+import Layout from 'components/DoubleColumnLayout';
 let music = require('resources/SomeoneYouLoved.mp3');
 
 type AudioProps = {
@@ -23,17 +24,19 @@ const musicList: AudioProps[] = [
 const MusicPlayer: React.FC = (props) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   return (
-    <div className={styles.container}>
-      <AudioComp
-        audioSrc={musicList[currentIndex].audioSrc}
-        audioTitle={musicList[currentIndex].audioTitle}
-        onChangeMusic={(det_index: number) => {
-          setCurrentIndex(
-            (currentIndex + det_index + musicList.length) % musicList.length
-          );
-        }}
-      />
-    </div>
+    <Layout>
+      <div className={styles.container}>
+        <AudioComp
+          audioSrc={musicList[currentIndex].audioSrc}
+          audioTitle={musicList[currentIndex].audioTitle}
+          onChangeMusic={(det_index: number) => {
+            setCurrentIndex(
+              (currentIndex + det_index + musicList.length) % musicList.length
+            );
+          }}
+        />
+      </div>
+    </Layout>
   );
 };
 export default MusicPlayer;

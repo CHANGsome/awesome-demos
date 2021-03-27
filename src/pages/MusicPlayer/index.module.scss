@@ -1,8 +1,7 @@
 @import 'styles/vars.scss';
 
 .container {
-  width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   @include center;
   flex-direction: column;
   background-color: $pink;
