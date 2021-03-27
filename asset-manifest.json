@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/awesome-volume-controls/static/css/main.d4a59f81.chunk.css",
-    "main.js": "/awesome-volume-controls/static/js/main.3cf9eb70.chunk.js",
-    "main.js.map": "/awesome-volume-controls/static/js/main.3cf9eb70.chunk.js.map",
-    "runtime-main.js": "/awesome-volume-controls/static/js/runtime-main.f169ad81.js",
-    "runtime-main.js.map": "/awesome-volume-controls/static/js/runtime-main.f169ad81.js.map",
-    "static/js/2.db242a73.chunk.js": "/awesome-volume-controls/static/js/2.db242a73.chunk.js",
-    "static/js/2.db242a73.chunk.js.map": "/awesome-volume-controls/static/js/2.db242a73.chunk.js.map",
-    "static/js/3.3f42104b.chunk.js": "/awesome-volume-controls/static/js/3.3f42104b.chunk.js",
-    "static/js/3.3f42104b.chunk.js.map": "/awesome-volume-controls/static/js/3.3f42104b.chunk.js.map",
-    "index.html": "/awesome-volume-controls/index.html",
-    "static/css/main.d4a59f81.chunk.css.map": "/awesome-volume-controls/static/css/main.d4a59f81.chunk.css.map",
-    "static/js/2.db242a73.chunk.js.LICENSE.txt": "/awesome-volume-controls/static/js/2.db242a73.chunk.js.LICENSE.txt",
-    "static/media/SomeoneYouLoved.mp3": "/awesome-volume-controls/static/media/SomeoneYouLoved.120e574b.mp3",
-    "static/media/index.module.scss": "/awesome-volume-controls/static/media/wave.6b644914.jpeg"
+    "main.css": "/awesome-demos/static/css/main.224efd80.chunk.css",
+    "main.js": "/awesome-demos/static/js/main.421ea07d.chunk.js",
+    "main.js.map": "/awesome-demos/static/js/main.421ea07d.chunk.js.map",
+    "runtime-main.js": "/awesome-demos/static/js/runtime-main.31d4255e.js",
+    "runtime-main.js.map": "/awesome-demos/static/js/runtime-main.31d4255e.js.map",
+    "static/js/2.5956d574.chunk.js": "/awesome-demos/static/js/2.5956d574.chunk.js",
+    "static/js/2.5956d574.chunk.js.map": "/awesome-demos/static/js/2.5956d574.chunk.js.map",
+    "static/js/3.9fdb5dce.chunk.js": "/awesome-demos/static/js/3.9fdb5dce.chunk.js",
+    "static/js/3.9fdb5dce.chunk.js.map": "/awesome-demos/static/js/3.9fdb5dce.chunk.js.map",
+    "index.html": "/awesome-demos/index.html",
+    "static/css/main.224efd80.chunk.css.map": "/awesome-demos/static/css/main.224efd80.chunk.css.map",
+    "static/js/2.5956d574.chunk.js.LICENSE.txt": "/awesome-demos/static/js/2.5956d574.chunk.js.LICENSE.txt",
+    "static/media/SomeoneYouLoved.mp3": "/awesome-demos/static/media/SomeoneYouLoved.120e574b.mp3",
+    "static/media/index.module.scss": "/awesome-demos/static/media/wave.6b644914.jpeg"
   },
   "entrypoints": [
-    "static/js/runtime-main.f169ad81.js",
-    "static/js/2.db242a73.chunk.js",
-    "static/css/main.d4a59f81.chunk.css",
-    "static/js/main.3cf9eb70.chunk.js"
+    "static/js/runtime-main.31d4255e.js",
+    "static/js/2.5956d574.chunk.js",
+    "static/css/main.224efd80.chunk.css",
+    "static/js/main.421ea07d.chunk.js"
   ]
 }
