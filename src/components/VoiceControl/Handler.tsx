@@ -26,9 +26,10 @@ const Handler: React.FC<PropsType> = (props) => {
         return;
       }
       let [transformOriginX, transformOriginY] = [
-        computedWinDis(handlerRef.current).left,
+        computedWinDis(handlerRef.current).left + size * 3.5,
         computedWinDis(handlerRef.current).top +
-          handlerRef.current.offsetHeight,
+          handlerRef.current.offsetHeight -
+          size * 3.5,
       ];
 
       let [det_x, det_y] = [
@@ -84,7 +85,7 @@ const Handler: React.FC<PropsType> = (props) => {
       lastX = e.clientX;
       handlerRef.current.style.transform = `rotate(${deg}deg)`;
     },
-    [onVolumeChange, maxCircles]
+    [onVolumeChange, maxCircles, size]
   );
   useEffect(() => {
     // 将mousemove和mouseup绑定在document上，这样拖拽元素时鼠标飞出去事件也不会丢失
