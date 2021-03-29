@@ -8,12 +8,15 @@
 .navContainer {
   background-color: #000;
   color: $pink;
-  min-width: 160px;
+  max-width: 160px;
+  min-height: 100vh;
   padding: 10px 0 0 20px;
   > li {
-    padding: 10px 4px;
+    width: 140px;
+    padding: 10px 20px 10px 4px;
     font-weight: 600;
-    font-size: 16p;
+    font-size: 16px;
     border-bottom: 1px solid $pink;
+    @include one-line;
   }
 }

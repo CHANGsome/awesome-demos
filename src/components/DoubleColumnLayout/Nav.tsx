@@ -10,6 +10,9 @@ const Nav: React.FC = (props) => {
       <li>
         <NavLink to="/baymax">Baymax</NavLink>
       </li>
+      <li>
+        <NavLink to="/canvas">Canvas</NavLink>
+      </li>
     </ul>
   );
 };

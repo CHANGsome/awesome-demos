@@ -1,0 +1,11 @@
+@import 'styles/vars.scss';
+
+.canvasContainer {
+  position: relative;
+  > .tools {
+    position: absolute;
+  }
+  > .canvas {
+    background-color: green;
+  }
+}

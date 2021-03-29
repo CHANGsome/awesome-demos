@@ -1,6 +1,7 @@
 import React from 'react';
 import MusicPlayer from 'pages/MusicPlayer';
 import Baymax from 'pages/Baymax';
+import Canvas from 'pages/Canvas';
 import {
   HashRouter as Router,
   Switch,
@@ -20,6 +21,9 @@ function App() {
         </Route>
         <Route exact path="/baymax">
           <Baymax />
+        </Route>
+        <Route exact path="/canvas">
+          <Canvas />
         </Route>
       </Switch>
     </Router>
