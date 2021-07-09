@@ -8,6 +8,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import SortableList from "./pages/SortableList";
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
         </Route>
         <Route exact path="/canvas">
           <Canvas />
+        </Route>
+        <Route exact path="/list">
+          <SortableList />
         </Route>
       </Switch>
     </Router>

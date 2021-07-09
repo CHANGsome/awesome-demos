@@ -1,11 +1,104 @@
-@import 'styles/vars.scss';
+@import "src/styles/vars";
 
 .canvasContainer {
   position: relative;
   > .tools {
     position: absolute;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    > svg {
+      width: 40px;
+      height: 40px;
+      transition: all 0.5s ease;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+    .divider {
+      height: 30px;
+      width: 2px;
+      background-color: #888;
+      margin: 0 30px 0 10px;
+    }
+    > .penSelection {
+      display: flex;
+      align-items: center;
+      > .red,
+      > .blue,
+      > .black {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 20px;
+        transition: all 0.3s ease;
+      }
+      > .red {
+        background-color: red;
+      }
+      > .blue {
+        background-color: blue;
+      }
+      > .black {
+        background-color: black;
+      }
+      > .penWrapper {
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+        margin-right: 20px;
+        transition: all 0.3s ease;
+        @include center;
+      }
+      .smallPen,
+      .middlePen,
+      .largePen {
+        width: 16px;
+        background-color: black;
+        border-radius: 4px;
+      }
+      .smallPen {
+        height: 4px;
+      }
+      .middlePen {
+        height: 6px;
+      }
+      .largePen {
+        height: 8px;
+      }
+    }
+    > .eraserSelection {
+      display: flex;
+      align-items: center;
+      > .small,
+      > .middle,
+      > .large {
+        background: #fff;
+        border-radius: 50%;
+        border: 5px solid #aaa;
+        background-image: linear-gradient(#fff 3px, transparent 0),
+          linear-gradient(90deg, #ccc 2px, transparent 0);
+        background-size: 5px 5px, 5px 5px;
+        margin-right: 20px;
+        transition: all 0.3s ease;
+      }
+      > .small {
+        width: 30px;
+        height: 30px;
+      }
+      > .middle {
+        width: 40px;
+        height: 40px;
+      }
+      > .large {
+        width: 50px;
+        height: 50px;
+      }
+    }
   }
   > .canvas {
-    background-color: green;
+    border: 1px solid red;
+    background-color: #f7f6e8;
+    cursor: url(https://cdn.discordapp.com/attachments/303406782104207362/315839175406649345/Overwatch.cur),
+      auto;
   }
 }

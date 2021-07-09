@@ -1,0 +1,17 @@
+@import "src/styles/vars";
+
+.container {
+  background-color: #fbf9f9;
+  min-height: 100vh;
+  @include center;
+
+  .item {
+    background-color: #000000;
+    padding: 12px 24px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    color: $pink;
+    font-weight: bold;
+    border-radius: 12px;
+  }
+}

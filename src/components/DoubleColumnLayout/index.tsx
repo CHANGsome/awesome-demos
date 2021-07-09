@@ -1,5 +1,6 @@
 import styles from './index.module.scss';
 import Nav from './Nav';
+import React from "react";
 
 const Layout: React.FC = (props) => {
   return (

@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import styles from './index.module.scss';
+import React from "react";
 
 const Nav: React.FC = (props) => {
   return (
@@ -12,6 +13,9 @@ const Nav: React.FC = (props) => {
       </li>
       <li>
         <NavLink to="/canvas">Canvas</NavLink>
+      </li>
+      <li>
+        <NavLink to="/list">Sortable List</NavLink>
       </li>
     </ul>
   );
