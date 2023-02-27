@@ -4,3 +4,5 @@
    ![music player](https://github.com/CHANGsome/awesome-demos/blob/master/src/resources/musicplayer.gif)
 2. baymax
    ![baymax](https://github.com/CHANGsome/awesome-demos/blob/master/src/resources/baymax.gif)
+3. 画布（canvas）
+   ![canvas](https://github.com/CHANGsome/awesome-demos/blob/master/src/resources/canvas.png)
