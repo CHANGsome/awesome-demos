@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/awesome-demos/static/css/main.224efd80.chunk.css",
-    "main.js": "/awesome-demos/static/js/main.421ea07d.chunk.js",
-    "main.js.map": "/awesome-demos/static/js/main.421ea07d.chunk.js.map",
-    "runtime-main.js": "/awesome-demos/static/js/runtime-main.31d4255e.js",
-    "runtime-main.js.map": "/awesome-demos/static/js/runtime-main.31d4255e.js.map",
-    "static/js/2.5956d574.chunk.js": "/awesome-demos/static/js/2.5956d574.chunk.js",
-    "static/js/2.5956d574.chunk.js.map": "/awesome-demos/static/js/2.5956d574.chunk.js.map",
-    "static/js/3.9fdb5dce.chunk.js": "/awesome-demos/static/js/3.9fdb5dce.chunk.js",
-    "static/js/3.9fdb5dce.chunk.js.map": "/awesome-demos/static/js/3.9fdb5dce.chunk.js.map",
+    "main.css": "/awesome-demos/static/css/main.7c8a0ae2.chunk.css",
+    "main.js": "/awesome-demos/static/js/main.9193f1a2.chunk.js",
+    "main.js.map": "/awesome-demos/static/js/main.9193f1a2.chunk.js.map",
+    "runtime-main.js": "/awesome-demos/static/js/runtime-main.e82071ae.js",
+    "runtime-main.js.map": "/awesome-demos/static/js/runtime-main.e82071ae.js.map",
+    "static/js/2.0a061187.chunk.js": "/awesome-demos/static/js/2.0a061187.chunk.js",
+    "static/js/2.0a061187.chunk.js.map": "/awesome-demos/static/js/2.0a061187.chunk.js.map",
+    "static/js/3.863e8e08.chunk.js": "/awesome-demos/static/js/3.863e8e08.chunk.js",
+    "static/js/3.863e8e08.chunk.js.map": "/awesome-demos/static/js/3.863e8e08.chunk.js.map",
     "index.html": "/awesome-demos/index.html",
-    "static/css/main.224efd80.chunk.css.map": "/awesome-demos/static/css/main.224efd80.chunk.css.map",
-    "static/js/2.5956d574.chunk.js.LICENSE.txt": "/awesome-demos/static/js/2.5956d574.chunk.js.LICENSE.txt",
+    "static/css/main.7c8a0ae2.chunk.css.map": "/awesome-demos/static/css/main.7c8a0ae2.chunk.css.map",
+    "static/js/2.0a061187.chunk.js.LICENSE.txt": "/awesome-demos/static/js/2.0a061187.chunk.js.LICENSE.txt",
     "static/media/SomeoneYouLoved.mp3": "/awesome-demos/static/media/SomeoneYouLoved.120e574b.mp3",
     "static/media/index.module.scss": "/awesome-demos/static/media/wave.6b644914.jpeg"
   },
   "entrypoints": [
-    "static/js/runtime-main.31d4255e.js",
-    "static/js/2.5956d574.chunk.js",
-    "static/css/main.224efd80.chunk.css",
-    "static/js/main.421ea07d.chunk.js"
+    "static/js/runtime-main.e82071ae.js",
+    "static/js/2.0a061187.chunk.js",
+    "static/css/main.7c8a0ae2.chunk.css",
+    "static/js/main.9193f1a2.chunk.js"
   ]
 }
