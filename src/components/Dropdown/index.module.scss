@@ -1,0 +1,32 @@
+.container {
+  max-width: 200px;
+}
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: greenyellow;
+  height: 100px;
+  width: 200px;
+  font-size: large;
+  font-weight: bold;
+}
+.dropAreaContainer {
+  background-color: #eee;
+  font-size: 14px;
+  padding: 10px;
+  max-width: 200px;
+  margin-top: 4px;
+  box-shadow: 10px 5px 5px #aaa;
+  .areaItem {
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #aaa;
+  }
+  .areaItem:last-child {
+    border-bottom: none;
+  }
+}
+.dropAreaHidden {
+  display: none;
+}

@@ -2,6 +2,7 @@ import * as React from 'react';
 import Layout from '../../components/DoubleColumnLayout';
 import styles from './index.module.scss';
 import { MouseEventHandler, useRef } from 'react';
+import DropDown from 'components/Dropdown';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {}
 const SortableList: React.FC<Props> = (props) => {
@@ -19,19 +20,27 @@ const SortableList: React.FC<Props> = (props) => {
 
   return (
     <Layout>
-      <div className={styles.container}>
-        <ul>
-          {list.map((item, index) => (
-            <li
-              className={styles.item}
-              key={index}
-              onMouseDown={handleMouseDown}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <>
+        <DropDown
+          dropItems={['item1', 'item2', 'item3', 'item4', 'item5']}
+          style={{ marginBottom: '10px' }}
+        >
+          <div>test</div>
+        </DropDown>
+        <div className={styles.container}>
+          <ul>
+            {list.map((item, index) => (
+              <li
+                className={styles.item}
+                key={index}
+                onMouseDown={handleMouseDown}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </>
     </Layout>
   );
 };
